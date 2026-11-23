@@ -1,54 +1,43 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BARBER GOLD</title>
-
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: #090909;
   color: white;
   font-family: Arial, sans-serif;
 }
-
 header {
   text-align: center;
   padding: 35px 15px;
   border-bottom: 1px solid #b58b35;
 }
-
 .logo {
   color: #d6ad55;
   font-size: 34px;
   font-weight: bold;
   letter-spacing: 4px;
 }
-
 header p {
   color: #aaa;
   margin-top: 8px;
   letter-spacing: 3px;
   font-size: 11px;
 }
-
 main {
   width: 90%;
   max-width: 480px;
   margin: 30px auto;
 }
-
 h2 {
   color: #d6ad55;
   margin-bottom: 18px;
 }
-
 .card {
   background: linear-gradient(135deg, #242424, #080808);
   border: 1px solid #bd9548;
@@ -57,22 +46,18 @@ h2 {
   margin-bottom: 22px;
   box-shadow: 0 5px 20px #000;
 }
-
 .card h3 {
   color: #d6ad55;
   letter-spacing: 3px;
 }
-
 .card p {
   color: #bbb;
   margin-top: 12px;
 }
-
 .gold {
   color: #e5bd69;
   font-weight: bold;
 }
-
 button {
   width: 100%;
   padding: 15px;
@@ -85,11 +70,6 @@ button {
   margin-top: 12px;
   cursor: pointer;
 }
-
-button:hover {
-  background: #e0bd70;
-}
-
 input {
   width: 100%;
   padding: 14px;
@@ -99,7 +79,6 @@ input {
   border: 1px solid #80632f;
   border-radius: 8px;
 }
-
 footer {
   text-align: center;
   padding: 25px;
@@ -108,50 +87,35 @@ footer {
 }
 </style>
 </head>
-
 <body>
-
 <header>
   <div class="logo">BARBER GOLD</div>
   <p>MEMBRESÍA EXCLUSIVA</p>
 </header>
-
 <main>
-
   <section class="card">
     <h3>BIENVENIDO</h3>
     <p>Tu estilo merece una experiencia exclusiva.</p>
     <p class="gold">Cada corte cuenta.</p>
   </section>
-
   <section class="card">
     <h2>Mi membresía</h2>
     <p>Consulta tus cortes y recompensas desde tu tarjeta digital.</p>
-    <input
-      type="text"
-      id="codigo"
-      placeholder="Ingresa tu código de membresía"
-    >
-    <button onclick="consultar()">
-      CONSULTAR MEMBRESÍA
-    </button>
+    <input type="text" id="codigo" placeholder="Ingresa tu código de membresía">
+    <button onclick="consultar()">CONSULTAR MEMBRESÍA</button>
     <p id="mensaje"></p>
   </section>
-
   <section class="card">
     <h2>Programa de recompensas</h2>
     <p>Acumula <span class="gold">10 cortes</span> y obtén 1 corte gratis.</p>
     <p>Tu fidelidad tiene recompensa.</p>
   </section>
-
   <section class="card">
     <h2>Acceso administrativo</h2>
     <p>Área exclusiva para administrar BARBER GOLD.</p>
     <p class="gold">Acceso pendiente de conexión segura.</p>
   </section>
-
 </main>
-
 <footer>
   BARBER GOLD © 2026<br>
   EXPERIENCIA • ESTILO • EXCLUSIVIDAD
@@ -169,15 +133,16 @@ async function consultar() {
   mensaje.textContent = "Consultando tu membresía...";
 
   try {
-    const respuesta = await fetch("https://hshjrajqkxzngjgqwgej.supabase.co/functions/v1/bright-processor", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        membership_code: codigo
-      })
-    });
+    const respuesta = await fetch(
+      "https://hshjrajqkxzngjgqwgej.supabase.co/functions/v1/swift-worker",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ membership_code: codigo })
+      }
+    );
 
     const datos = await respuesta.json();
 
@@ -195,21 +160,8 @@ async function consultar() {
     mensaje.textContent = error.message;
   }
 }
-  const codigo = document.getElementById("codigo").value.trim();
-  const mensaje = document.getElementById("mensaje");
-
-  if (!codigo) {
-    mensaje.textContent = "Ingresa tu código de membresía.";
-    return;
-  }
-
-  mensaje.textContent =
-    "La consulta estará disponible cuando conectemos Supabase.";
-}
 </script>
-
-
-
 </body>
 </html>
+
 
