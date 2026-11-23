@@ -158,7 +158,44 @@ footer {
 </footer>
 
 <script>
-function consultar() {
+async function consultar() {
+  const codigo = document.getElementById("codigo").value.trim();
+  const mensaje = document.getElementById("mensaje");
+
+  if (!codigo) {
+    mensaje.textContent = "Ingresa tu código de membresía.";
+    return;
+  }
+
+  mensaje.textContent = "Consultando tu membresía...";
+
+  try {
+    const respuesta = await fetch("PEGA_AQUI_TU_URL_DE_BRIGHT_PROCESSOR", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        membership_code: codigo
+      })
+    });
+
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+      throw new Error(datos.error || "No se encontró la membresía.");
+    }
+
+    mensaje.textContent =
+      "Cliente: " + datos.name +
+      " | Cortes: " + datos.total_cuts +
+      " | Recompensas: " + datos.rewards_redeemed +
+      " | Cortes para recompensa: " + datos.cuts_remaining;
+
+  } catch (error) {
+    mensaje.textContent = error.message;
+  }
+}
   const codigo = document.getElementById("codigo").value.trim();
   const mensaje = document.getElementById("mensaje");
 
@@ -174,3 +211,4 @@ function consultar() {
 
 </body>
 </html>
+
