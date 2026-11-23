@@ -170,7 +170,7 @@ async function consultar() {
   mensaje.textContent = "Consultando tu membresía...";
 
   try {
-    const respuesta = await fetch("PEGA_AQUI_TU_URL_DE_BRIGHT_PROCESSOR", {
+    const respuesta = await fetch("https://hshjrajqkxzngjgqwgej.supabase.co/functions/v1/swift-worker", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
